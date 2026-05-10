@@ -293,7 +293,9 @@
     gap: 8px;
   }
   .photo-cell { border-radius: 10px; overflow: hidden; position: relative; cursor: pointer; }
-  .photo-cell:first-child { grid-row: span 2; }
+  .photo-cell:first-child { grid-row: 1; }
+  .photo-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
+  .photo-cell:hover img { transform: scale(1.04); }
   .photo-fill {
     width: 100%; height: 100%;
     display: flex; align-items: flex-end; padding: 18px;
@@ -420,8 +422,8 @@
     .work-cols { grid-template-columns: 1fr; gap: 24px; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
     .photo-intro, .kitchen-intro { grid-template-columns: 1fr; gap: 32px; }
-    .photo-gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px; }
-    .photo-cell:first-child { grid-row: span 1; }
+    .photo-gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px 160px; }
+    .photo-cell:first-child { grid-row: 1; }
     .recipe-grid { grid-template-columns: 1fr; }
     .certs-grid { grid-template-columns: 1fr 1fr; }
     #contact .section-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -690,52 +692,24 @@
 
       </div>
     </div>
-    <!-- Replace the dark divs below with your own <img> tags using object-fit: cover -->
     <div class="photo-gallery fade-in">
       <div class="photo-cell">
-        <div class="photo-fill ph-1" style="height:100%;">
-          <div class="photo-placeholder">Your photo<br>here</div>
-          <div class="photo-meta">
-            <div class="photo-loc">Sicily · 2024</div>
-            <div class="photo-desc">Coastal cliffs at sunrise</div>
-          </div>
-        </div>
+        <img src="https://images.mauriziomcarollo.com/Drone/Cappadocia_Drone.jpg" alt="Cappadocia from above">
       </div>
       <div class="photo-cell">
-        <div class="photo-fill ph-2">
-          <div class="photo-placeholder">Add photo</div>
-          <div class="photo-meta">
-            <div class="photo-loc">Milan · 2023</div>
-            <div class="photo-desc">Urban grid, winter</div>
-          </div>
-        </div>
+        <img src="https://images.mauriziomcarollo.com/Drone/Hong%20Kong_Drone.jpg" alt="Hong Kong from above">
       </div>
       <div class="photo-cell">
-        <div class="photo-fill ph-3">
-          <div class="photo-placeholder">Add photo</div>
-          <div class="photo-meta">
-            <div class="photo-loc">Puglia · 2023</div>
-            <div class="photo-desc">Valley at dusk</div>
-          </div>
-        </div>
+        <img src="https://images.mauriziomcarollo.com/Drone/Palermo_Drone2.jpg" alt="Palermo from above">
       </div>
       <div class="photo-cell">
-        <div class="photo-fill ph-4">
-          <div class="photo-placeholder">Add photo</div>
-          <div class="photo-meta">
-            <div class="photo-loc">Sicily · 2024</div>
-            <div class="photo-desc">Etna, volcanic terrain</div>
-          </div>
-        </div>
+        <img src="https://images.mauriziomcarollo.com/Drone/Cappadocia_Drone2.jpg" alt="Cappadocia landscape">
       </div>
       <div class="photo-cell">
-        <div class="photo-fill ph-5">
-          <div class="photo-placeholder">Add photo</div>
-          <div class="photo-meta">
-            <div class="photo-loc">Lombardy · 2024</div>
-            <div class="photo-desc">Lake Como, September</div>
-          </div>
-        </div>
+        <img src="https://images.mauriziomcarollo.com/Drone/Ustica_drone.jpg" alt="Ustica from above">
+      </div>
+      <div class="photo-cell">
+        <img src="https://images.mauriziomcarollo.com/Drone/Vulcano_drone.jpg" alt="Vulcano from above">
       </div>
     </div>
   </div>
