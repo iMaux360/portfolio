@@ -8,7 +8,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger cPanel Git deployment
+      - name: Pull from remote on cPanel
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: cpanel studpeki:${{ secrets.CPANEL_API_TOKEN }}" \
+            "https://premium88.web-hosting.com:2083/execute/VersionControl/update" \
+            --data-urlencode "repository_root=/home/studpeki/mauriportfolio"
+      - name: Deploy HEAD commit
         run: |
           curl -s -o /dev/null -w "%{http_code}" \
             -H "Authorization: cpanel studpeki:${{ secrets.CPANEL_API_TOKEN }}" \
