@@ -16,7 +16,7 @@ jobs:
           username: mauri@mauriziomcarollo.com
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          server-dir: /mauriportfolio/
+          server-dir: /
           exclude: |
             **/.git*
             **/.git*/**
