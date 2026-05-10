@@ -1,0 +1,15 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger cPanel Git deployment
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" \
+            "https://studpeki:${{ secrets.CPANEL_API_TOKEN }}@premium88.web-hosting.com:2083/execute/VersionControlDeployment/create" \
+            --data-urlencode "repository_root=/home/studpeki/mauriportfolio"
