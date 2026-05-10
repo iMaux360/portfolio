@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maurizio Carollo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf8f4;
+    --ink: #1a1a1a;
+    --muted: #888;
+    --faint: #bbb;
+    --fainter: #ddd;
+    --border: rgba(0,0,0,0.08);
+    --border-med: rgba(0,0,0,0.14);
+    --green: #4ade80;
+    --green-bg: #d4f5e0;
+    --green-ink: #0f6e56;
+    --green-dark: #0a2a15;
+    --teal-bg: #e8f5f0;
+    --amber-bg: #fff5e8;
+    --amber-ink: #854f0b;
+    --serif: 'Lora', Georgia, serif;
+    --sans: 'Outfit', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--green-ink); border-radius: 2px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 40px;
+    border-bottom: 0.5px solid var(--border);
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .nav-logo { font-family: var(--serif); font-size: 22px; color: var(--ink); }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a {
+    font-size: 16px; letter-spacing: 0.04em;
+    color: var(--muted); text-decoration: none;
+    padding: 6px 14px; border-radius: 20px;
+    border: 0.5px solid transparent;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); border-color: var(--border-med); }
+  .nav-links a.active { color: var(--cream); background: var(--ink); }
+
+  /* HERO — full viewport */
+  #home {
+    height: 100vh;
+    padding-top: 65px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .hero-main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    padding: 48px 40px;
+    gap: 48px;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--faint); margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 0.6s 0.1s forwards;
+  }
+  .eyebrow-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0;
+  }
+
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(64px, 10vw, 120px);
+    font-weight: 400;
+    line-height: 1.0;
+    color: var(--ink);
+    margin-bottom: 48px;
+    opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
+  }
+  .hero-headline .accent {
+    background: var(--green-bg);
+    border-radius: 10px;
+    padding: 0 14px;
+    font-style: italic;
+    color: var(--green-ink);
+  }
+
+  .hero-footer-row {
+    display: none;
+  }
+  .hero-desc {
+    font-size: 20px; color: var(--muted); line-height: 1.78;
+    opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
+  }
+  .hero-desc strong { color: var(--ink); font-weight: 400; }
+  .hero-actions {
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.7s 0.45s forwards;
+  }
+  .btn-dark {
+    font-family: var(--sans); font-size: 19px; font-weight: 500;
+    background: var(--ink); color: var(--cream);
+    padding: 12px 24px; border-radius: 24px;
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .btn-dark:hover { opacity: 0.78; }
+  .btn-outline {
+    font-size: 19px; color: var(--muted);
+    border: 0.5px solid var(--border-med);
+    padding: 12px 18px; border-radius: 24px;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-outline:hover { color: var(--ink); border-color: rgba(0,0,0,0.28); }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 0.5px solid var(--border);
+  }
+  .stat-cell { padding: 24px 40px; border-right: 0.5px solid var(--border); }
+  .stat-cell:last-child { border-right: none; }
+  .stat-n {
+    font-family: var(--serif); font-size: 40px; font-weight: 400;
+    color: var(--ink); display: block; margin-bottom: 4px;
+  }
+  .stat-l { font-size: 17px; color: var(--faint); }
+
+  /* BEYOND WORK */
+  #beyond { border-top: 0.5px solid var(--border); }
+  .beyond-label {
+    padding: 22px 40px 0;
+    font-size: 15px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--fainter);
+  }
+  .passion-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px; padding: 14px 40px 40px;
+  }
+  .passion-card {
+    border-radius: 14px; padding: 28px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 128px; position: relative; overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.25s ease;
+  }
+  .passion-card:hover { transform: translateY(-3px); }
+  .pc-aerial { background: var(--teal-bg); }
+  .pc-kitchen { background: var(--amber-bg); }
+  .pc-deco {
+    position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+    font-size: 66px; opacity: 0.12; pointer-events: none;
+  }
+  .pc-label {
+    font-size: 15px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .pc-aerial .pc-label { color: var(--green-ink); }
+  .pc-kitchen .pc-label { color: var(--amber-ink); }
+  .pc-title { font-family: var(--serif); font-size: 29px; font-style: italic; color: var(--ink); }
+  .pc-sub { font-size: 18px; color: var(--muted); margin-top: 4px; }
+  .pc-link { font-size: 17px; font-weight: 500; margin-top: 18px; display: inline-block; }
+  .pc-aerial .pc-link { color: var(--green-ink); }
+  .pc-kitchen .pc-link { color: var(--amber-ink); }
+
+  /* SHARED */
+  section { border-top: 0.5px solid var(--border); }
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 80px 40px; }
+  .section-label {
+    font-size: 15px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--faint); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: clamp(36px, 4vw, 54px);
+    font-weight: 400; line-height: 1.1; color: var(--ink); margin-bottom: 52px;
+  }
+  .section-title em { font-style: italic; color: var(--muted); }
+
+  .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* WORK */
+  .work-stack { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .work-card { background: var(--cream); padding: 36px; transition: background 0.2s; }
+  .work-card:hover { background: #f3f1ed; }
+  .work-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+  .work-company { font-size: 24px; font-weight: 500; color: var(--ink); }
+  .work-period { font-size: 17px; color: var(--faint); letter-spacing: 0.04em; padding-top: 4px; }
+  .work-role { font-size: 19px; color: var(--muted); font-style: italic; margin-bottom: 24px; }
+  .work-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .work-col-label {
+    font-size: 15px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--green-ink); margin-bottom: 12px;
+  }
+  .highlights { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .highlights li {
+    font-size: 16px; color: var(--muted); line-height: 1.6;
+    padding-left: 14px; position: relative;
+  }
+  .highlights li::before {
+    content: ''; position: absolute; left: 0; top: 9px;
+    width: 5px; height: 1px; background: var(--green-ink);
+  }
+  .work-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 24px; }
+  .work-tag {
+    font-size: 17px; padding: 4px 10px; border-radius: 20px;
+    border: 0.5px solid var(--border-med); color: var(--faint);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--border);
+    border: 0.5px solid var(--border); border-radius: 14px; overflow: hidden;
+  }
+  .skill-cat { background: var(--cream); padding: 28px 24px; }
+  .skill-cat-label {
+    font-size: 15px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--green-ink); margin-bottom: 16px;
+  }
+  .skill-list { display: flex; flex-direction: column; }
+  .skill-item {
+    font-size: 19px; color: var(--muted); padding: 8px 0;
+    border-bottom: 0.5px solid var(--border); transition: color 0.2s;
+  }
+  .skill-item:last-child { border-bottom: none; }
+  .skill-item:hover { color: var(--ink); }
+
+  .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 32px; }
+  .cert-card {
+    background: var(--cream); border: 0.5px solid var(--border);
+    border-radius: 10px; padding: 18px; transition: border-color 0.2s;
+  }
+  .cert-card:hover { border-color: var(--border-med); }
+  .cert-name { font-size: 18px; font-weight: 500; color: var(--ink); margin-bottom: 5px; line-height: 1.4; }
+  .cert-issuer { font-size: 17px; color: var(--faint); }
+
+  /* PHOTOGRAPHY */
+  .photo-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 48px; align-items: start; }
+  .photo-text { font-size: 23px; color: var(--muted); line-height: 1.8; }
+  .photo-text strong { color: var(--ink); font-weight: 400; }
+  .photo-specs { display: flex; flex-direction: column; }
+  .spec-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 13px 0; border-bottom: 0.5px solid var(--border); font-size: 19px;
+  }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-label { font-size: 15px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+  .spec-val { color: var(--muted); }
+
+  .photo-gallery {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 200px 200px;
+    gap: 8px;
+  }
+  .photo-cell { border-radius: 10px; overflow: hidden; position: relative; cursor: pointer; }
+  .photo-cell:first-child { grid-row: span 2; }
+  .photo-fill {
+    width: 100%; height: 100%;
+    display: flex; align-items: flex-end; padding: 18px;
+    transition: transform 0.35s ease;
+  }
+  .photo-cell:hover .photo-fill { transform: scale(1.04); }
+  .ph-1 { background: linear-gradient(170deg, #0c2218 0%, #143322 60%, #0a1a10 100%); }
+  .ph-2 { background: linear-gradient(160deg, #06101c 0%, #0d1e30 60%, #050d18 100%); }
+  .ph-3 { background: linear-gradient(160deg, #131008 0%, #211a08 60%, #0c0904 100%); }
+  .ph-4 { background: linear-gradient(160deg, #0e0c1e 0%, #18143a 60%, #09071a 100%); }
+  .ph-5 { background: linear-gradient(160deg, #080e08 0%, #101810 60%, #060a06 100%); }
+  .photo-placeholder {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.1); text-align: center; pointer-events: none; line-height: 1.6;
+  }
+  .photo-meta { position: relative; z-index: 2; }
+  .photo-loc { font-size: 15px; color: rgba(255,255,255,0.35); letter-spacing: 0.08em; text-transform: uppercase; }
+  .photo-desc { font-size: 18px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+
+  /* KITCHEN */
+  .kitchen-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 48px; align-items: start; }
+  .kitchen-pull { border-left: 2px solid var(--green); padding-left: 24px; }
+  .kitchen-quote {
+    font-family: var(--serif); font-size: 24px; font-style: italic;
+    color: var(--ink); line-height: 1.45; margin-bottom: 10px;
+  }
+  .kitchen-attr { font-size: 17px; color: var(--faint); letter-spacing: 0.06em; }
+  .kitchen-text { font-size: 21px; color: var(--muted); line-height: 1.8; }
+  .kitchen-text strong { color: var(--ink); font-weight: 400; }
+
+  .recipe-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .recipe-card {
+    background: var(--cream); border: 0.5px solid var(--border);
+    border-radius: 12px; overflow: hidden; transition: border-color 0.25s;
+  }
+  .recipe-card:hover { border-color: rgba(133,79,11,0.22); }
+  .recipe-img { height: 110px; display: flex; align-items: center; justify-content: center; }
+  .ri-1 { background: linear-gradient(150deg, #1a0900, #2e1400); }
+  .ri-2 { background: linear-gradient(150deg, #0e1a08, #182e08); }
+  .ri-3 { background: linear-gradient(150deg, #1a1300, #2e2000); }
+  .recipe-img-ph { font-size: 15px; color: rgba(255,255,255,0.12); letter-spacing: 0.08em; text-transform: uppercase; }
+  .recipe-body { padding: 18px; }
+  .recipe-title { font-size: 21px; font-weight: 500; color: var(--ink); margin-bottom: 5px; }
+  .recipe-desc { font-size: 18px; color: var(--muted); line-height: 1.6; }
+  .recipe-meta { display: flex; gap: 10px; margin-top: 12px; font-size: 15px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* CONTACT */
+  #contact .section-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-tagline {
+    font-family: var(--serif); font-size: clamp(30px, 3.5vw, 46px);
+    color: var(--ink); line-height: 1.15; margin-bottom: 22px;
+  }
+  .contact-tagline em { font-style: italic; color: var(--muted); }
+  .contact-text { font-size: 21px; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+  .contact-links { display: flex; flex-direction: column; gap: 10px; }
+  .contact-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 15px 20px; border: 0.5px solid var(--border);
+    border-radius: 10px; text-decoration: none; color: var(--muted);
+    font-size: 21px; transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--border-med); color: var(--ink); background: #f3f1ed; }
+  .contact-link-label { font-size: 15px; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label { font-size: 15px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+  .form-input {
+    background: #f3f1ed; border: 0.5px solid var(--border);
+    border-radius: 8px; padding: 12px 16px;
+    color: var(--ink); font-family: var(--sans); font-size: 21px; font-weight: 300;
+    outline: none; transition: border-color 0.2s; width: 100%;
+  }
+  .form-input:focus { border-color: var(--green-ink); background: var(--cream); }
+  .form-input::placeholder { color: var(--faint); }
+  textarea.form-input { resize: vertical; min-height: 120px; }
+  .form-submit {
+    background: var(--ink); color: var(--cream); border: none;
+    padding: 13px 28px; border-radius: 24px;
+    font-family: var(--sans); font-size: 19px; font-weight: 500;
+    cursor: pointer; align-self: flex-start; transition: opacity 0.2s;
+  }
+  .form-submit:hover { opacity: 0.8; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 40px;
+  }
+  .footer-l { font-family: var(--serif); font-size: 18px; color: rgba(250,248,244,0.8); font-style: italic; }
+  .footer-r { display: flex; gap: 8px; }
+  .footer-link {
+    font-size: 15px; color: rgba(250,248,244,0.35);
+    padding: 6px 14px; border-radius: 20px;
+    border: 0.5px solid rgba(255,255,255,0.1);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-link:hover { color: rgba(250,248,244,0.7); }
+  .footer-cta {
+    font-size: 15px; font-weight: 500;
+    background: var(--green); color: var(--green-dark);
+    padding: 6px 14px; border-radius: 20px; text-decoration: none;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .hero-main { grid-template-columns: 1fr; padding: 48px 24px 36px; gap: 32px; }
+    .hero-headline { font-size: clamp(52px, 14vw, 80px); }
+    .hero-stats { grid-template-columns: 1fr; }
+    .stat-cell { padding: 18px 24px; border-right: none; border-bottom: 0.5px solid var(--border); }
+    .stat-cell:last-child { border-bottom: none; }
+    .beyond-label { padding: 18px 24px 0; }
+    .passion-row { grid-template-columns: 1fr; padding: 12px 24px 32px; }
+    .section-inner { padding: 56px 24px; }
+    .work-cols { grid-template-columns: 1fr; gap: 24px; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .photo-intro, .kitchen-intro { grid-template-columns: 1fr; gap: 32px; }
+    .photo-gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px; }
+    .photo-cell:first-child { grid-row: span 1; }
+    .recipe-grid { grid-template-columns: 1fr; }
+    .certs-grid { grid-template-columns: 1fr 1fr; }
+    #contact .section-inner { grid-template-columns: 1fr; gap: 40px; }
+    footer { flex-direction: column; gap: 16px; padding: 24px; text-align: center; }
+  }
+  @media (max-width: 560px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .certs-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Maurizio Carollo</div>
+  <div class="nav-links">
+    <a href="#home" class="active">Home</a>
+    <a href="#skills">Skills</a>
+    <a href="#work">Work</a>
+    <a href="#photography">Photography</a>
+    <a href="#kitchen">Kitchen</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO — full viewport -->
+<section id="home">
+  <div class="hero-main">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Consultant · Digital Innovation  · Italy
+      </div>
+      <h1 class="hero-headline">
+        Making complex<br>
+        <span class="accent">change</span> happen.
+      </h1>
+    </div>
+    <div class="hero-right">
+      <p class="hero-desc">
+        Consultant at <strong>Deloitte</strong> — coordinating the GenAI Center of Excellence, driving AI adoption at scale across Italy and Europe. Started in the startup world. Still think like one.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-dark">Get in touch</a>
+        <a href="#work" class="btn-outline">See my work ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hero-stats">
+  <div class="stat-cell">
+    <span class="stat-n">220+</span>
+    <span class="stat-l">GenAI solutions driven to market</span>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-n">70k+</span>
+    <span class="stat-l">End users impacted across Europe</span>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-n">4 yrs</span>
+    <span class="stat-l">At Deloitte Consulting</span>
+  </div>
+</div>
+
+<!-- BEYOND WORK — below the fold -->
+<div id="beyond">
+  <div class="beyond-label fade-in">When I'm not consulting</div>
+  <div class="passion-row fade-in">
+    <a href="#photography" class="passion-card pc-aerial">
+      <div class="pc-deco">✈</div>
+      <div>
+        <div class="pc-label">Aerial photography</div>
+        <div class="pc-title">300 metres up.</div>
+        <div class="pc-sub">Drones, coastlines, and geometry from above.</div>
+      </div>
+      <span class="pc-link">See the gallery →</span>
+    </a>
+    <a href="#kitchen" class="passion-card pc-kitchen">
+      <div class="pc-deco">🍝</div>
+      <div>
+        <div class="pc-label">From the kitchen</div>
+        <div class="pc-title">Seasonal. Obsessive.</div>
+        <div class="pc-sub">Sicilian roots.</div>
+      </div>
+      <span class="pc-link">Explore recipes →</span>
+    </a>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-label">Capabilities</div>
+      <h2 class="section-title">What I<br><em>bring.</em></h2>
+    </div>
+    <div class="skills-grid fade-in">
+      <div class="skill-cat">
+        <div class="skill-cat-label">Digital & Tech</div>
+        <div class="skill-list">
+          <div class="skill-item">Microsoft 365</div>
+          <div class="skill-item">SharePoint</div>
+          <div class="skill-item">Salesforce FSM</div>
+          <div class="skill-item">Power BI</div>
+          <div class="skill-item">SQL</div>
+          <div class="skill-item">Articulate Rise 360</div>
+          <div class="skill-item">Digital Adoption Platforms</div>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-label">Project & Change</div>
+        <div class="skill-list">
+          <div class="skill-item">PMO</div>
+          <div class="skill-item">Agile / Scrum</div>
+          <div class="skill-item">Change Management</div>
+          <div class="skill-item">Stakeholder Engagement</div>
+          <div class="skill-item">Training & Communications</div>
+          <div class="skill-item">Go-to-Market</div>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-label">Business & Strategy</div>
+        <div class="skill-list">
+          <div class="skill-item">Process Analysis</div>
+          <div class="skill-item">Fit & Gap Analysis</div>
+          <div class="skill-item">Benchmarking</div>
+          <div class="skill-item">Business Development</div>
+          <div class="skill-item">Strategic Roadmapping</div>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-label">Languages</div>
+        <div class="skill-list">
+          <div class="skill-item">Italian — native</div>
+          <div class="skill-item">English — C1</div>
+          <div class="skill-item">Spanish — A2/B1</div>
+        </div>
+      </div>
+    </div>
+    <div class="certs-grid fade-in">
+      <div class="cert-card">
+        <div class="cert-name">AI Management System Lead Auditor (ISO/IEC 42001:2023)</div>
+        <div class="cert-issuer">BSI</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Scrum Master</div>
+        <div class="cert-issuer">Agile Business Consortium</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">ITIL v4 Foundation</div>
+        <div class="cert-issuer">PeopleCert</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">MyMeta Certification</div>
+        <div class="cert-issuer">MyMeta</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">ServiceNow Fundamentals & HRSD</div>
+        <div class="cert-issuer">ServiceNow</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">The work<br><em>I've done.</em></h2>
+    </div>
+    <div class="work-stack fade-in">
+      <div class="work-card">
+        <div class="work-header">
+          <div class="work-company">Deloitte Consulting</div>
+          <div class="work-period">Oct 2021 – Present · Milan</div>
+        </div>
+        <div class="work-role">Project Management, Digital Transformation & Change Management</div>
+        <div class="work-cols">
+          <div>
+            <div class="work-col-label">GenAI Center of Excellence</div>
+            <ul class="highlights">
+              <li>Orchestrated daily operations for the GenAI CoE — central touchpoint for 200+ professionals across 6 strategic workstreams</li>
+              <li>Drove go-to-market execution for 220+ GenAI-powered solutions, tracking adoption at scale across Italy and Europe (70,000+ users)</li>
+              <li>Led high-impact client showcases and workshops for 200+ clients, accelerating AI awareness and adoption</li>
+              <li>Co-defined the strategic roadmap for FY26-27-28 at senior Leadership level</li>
+            </ul>
+          </div>
+          <div>
+            <div class="work-col-label">Digital Transformation & Change</div>
+            <ul class="highlights">
+              <li>Supported Microsoft 365 adoption for a 650+ employee company — maturity assessment, training, KPIs monitoring through Power BI</li>
+              <li>Stakeholder engagement for SharePoint upgrade across 12,000+ employees in three countries, with C-Level exposure</li>
+              <li>Salesforce FSM governance, training and KPI monitoring across 6,000+ employees in 3 countries</li>
+              <li>Digital learning experiences via Articulate Rise 360 for large-scale adoption programmes</li>
+            </ul>
+          </div>
+        </div>
+        <div class="work-tags">
+          <span class="work-tag">GenAI</span>
+          <span class="work-tag">PMO</span>
+          <span class="work-tag">Change Management</span>
+          <span class="work-tag">Microsoft 365</span>
+          <span class="work-tag">SharePoint</span>
+          <span class="work-tag">Salesforce FSM</span>
+          <span class="work-tag">Power BI</span>
+          <span class="work-tag">Articulate Rise 360</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-header">
+          <div class="work-company">Wabalun srl</div>
+          <div class="work-period">Sept 2019 – Jun 2022 · Palermo</div>
+        </div>
+        <div class="work-role">Co-founder & Operations Specialist</div>
+        <ul class="highlights">
+          <li>Market analysis (B2B, Travel & Leisure) and consumer behaviour research for B2C</li>
+          <li>Managed technology scouting — mobile app frameworks, third-party integrations, feasibility</li>
+          <li>Formulated a full Business Plan for a public tender (Invitalia)</li>
+          <li>Product management: mission & vision, UX, roadmap, prioritisation, testing & feedback</li>
+        </ul>
+        <div class="work-tags">
+          <span class="work-tag">Product Management</span>
+          <span class="work-tag">Market Analysis</span>
+          <span class="work-tag">Business Planning</span>
+          <span class="work-tag">UX</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-header"><div class="work-company">Education</div></div>
+        <ul class="highlights" style="gap:16px;">
+          <li><strong style="color:var(--ink);font-weight:500;">LUISS Guido Carli</strong> — Executive Master in Open Innovation & Intellectual Property · Rome, 2021–2022</li>
+          <li><strong style="color:var(--ink);font-weight:500;">LUMSA</strong> — MSc in Economics and Management, <em>cum laude</em> · Rome, 2018–2020</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOGRAPHY -->
+<section id="photography">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-label">Aerial photography</div>
+      <h2 class="section-title">The world<br><em>from above.</em></h2>
+    </div>
+    <div class="photo-intro fade-in">
+      <div class="photo-text">
+        I started flying drones out of curiosity about technology. I stayed for what you find up there: the geometry of coastlines, the patterns of cities from the sky, the way light hits terrain differently when you remove the human perspective entirely.<br><br>
+        When I can, I travel with my drone. Landscapes, architecture, and the occasional uncomfortable beauty of industrial zones.
+      </div>
+      <div class="photo-specs">
+        <div class="spec-row">
+          <span class="spec-label">Equipment</span>
+          <span class="spec-val">DJI Drones</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Subjects</span>
+          <span class="spec-val">Landscape · Coastal · Architecture</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Locations</span>
+          <span class="spec-val">World</span>
+        </div>
+
+      </div>
+    </div>
+    <!-- Replace the dark divs below with your own <img> tags using object-fit: cover -->
+    <div class="photo-gallery fade-in">
+      <div class="photo-cell">
+        <div class="photo-fill ph-1" style="height:100%;">
+          <div class="photo-placeholder">Your photo<br>here</div>
+          <div class="photo-meta">
+            <div class="photo-loc">Sicily · 2024</div>
+            <div class="photo-desc">Coastal cliffs at sunrise</div>
+          </div>
+        </div>
+      </div>
+      <div class="photo-cell">
+        <div class="photo-fill ph-2">
+          <div class="photo-placeholder">Add photo</div>
+          <div class="photo-meta">
+            <div class="photo-loc">Milan · 2023</div>
+            <div class="photo-desc">Urban grid, winter</div>
+          </div>
+        </div>
+      </div>
+      <div class="photo-cell">
+        <div class="photo-fill ph-3">
+          <div class="photo-placeholder">Add photo</div>
+          <div class="photo-meta">
+            <div class="photo-loc">Puglia · 2023</div>
+            <div class="photo-desc">Valley at dusk</div>
+          </div>
+        </div>
+      </div>
+      <div class="photo-cell">
+        <div class="photo-fill ph-4">
+          <div class="photo-placeholder">Add photo</div>
+          <div class="photo-meta">
+            <div class="photo-loc">Sicily · 2024</div>
+            <div class="photo-desc">Etna, volcanic terrain</div>
+          </div>
+        </div>
+      </div>
+      <div class="photo-cell">
+        <div class="photo-fill ph-5">
+          <div class="photo-placeholder">Add photo</div>
+          <div class="photo-meta">
+            <div class="photo-loc">Lombardy · 2024</div>
+            <div class="photo-desc">Lake Como, September</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KITCHEN -->
+<section id="kitchen">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-label">From the kitchen</div>
+      <h2 class="section-title">Cooking as<br><em>discipline.</em></h2>
+    </div>
+    <div class="kitchen-intro fade-in">
+      <div class="kitchen-pull">
+        <div class="kitchen-quote">"Good cooking is mostly about not getting in the way of good ingredients."</div>
+        <div class="kitchen-attr">A principle I apply to transformation projects too.</div>
+      </div>
+      <div class="kitchen-text">
+        I grew up in Sicily, where food is not a hobby — it's infrastructure. Cooking seriously started when I moved to Rome for university and had to rebuild what I'd taken for granted at home.<br><br>
+        My kitchen is <strong>seasonal and regional</strong>. I'm interested in technique, in the logic behind recipes, in what changes when you understand why something works rather than just following steps. Pasta, slow braises, vegetables treated with care. No shortcuts.
+      </div>
+    </div>
+    <div class="recipe-grid fade-in">
+      <div class="recipe-card">
+        <!-- Replace with: <img src="assets/kitchen/ragu.jpg" style="width:100%;height:110px;object-fit:cover;"> -->
+        <div class="recipe-img ri-1"><span class="recipe-img-ph">Add photo</span></div>
+        <div class="recipe-body">
+          <div class="recipe-title">Ragù alla Bolognese</div>
+          <div class="recipe-desc">The real version: three meats, white wine, milk, four hours. No tomato paste shortcuts.</div>
+          <div class="recipe-meta"><span>4h cook</span><span>·</span><span>Emilian tradition</span></div>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="recipe-img ri-2"><span class="recipe-img-ph">Add photo</span></div>
+        <div class="recipe-body">
+          <div class="recipe-title">Caponata Siciliana</div>
+          <div class="recipe-desc">Sweet and sour aubergine stew. My grandmother's version, adjusted for Lombardy seasons.</div>
+          <div class="recipe-meta"><span>90 min</span><span>·</span><span>Sicilian roots</span></div>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="recipe-img ri-3"><span class="recipe-img-ph">Add photo</span></div>
+        <div class="recipe-body">
+          <div class="recipe-title">Pasta al Burro e Tartufo</div>
+          <div class="recipe-desc">Four ingredients. The best pasta you'll eat, provided you don't add a fifth.</div>
+          <div class="recipe-meta"><span>20 min</span><span>·</span><span>Northern Italian</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-left fade-in">
+      <div class="section-label">Contact</div>
+      <div class="contact-tagline">Let's talk about<br><em>what's next.</em></div>
+      <p class="contact-text">Happy to connect on consulting, digital transformation, AI adoption — or drones and pasta.</p>
+      <div class="contact-links">
+        <a href="mailto:mauriziomcarollo@gmail.com" class="contact-link">
+          <div>
+            <div class="contact-link-label">Email</div>
+            mauriziomcarollo@gmail.com
+          </div>
+          <span>↗</span>
+        </a>
+        <a href="https://linkedin.com/in/maurizio-carollo" target="_blank" class="contact-link">
+          <div>
+            <div class="contact-link-label">LinkedIn</div>
+            linkedin.com/in/maurizio-carollo
+          </div>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form fade-in">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-input" placeholder="Your name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-input" placeholder="A project, a collaboration, a recipe question — anything."></textarea>
+      </div>
+      <button class="form-submit">Send message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-l">Maurizio Carollo · Italy · <span id="footer-year"></span></div>
+  <div class="footer-r">
+    <a href="https://linkedin.com/in/maurizio-carollo" target="_blank" class="footer-link">LinkedIn ↗</a>
+    <a href="#contact" class="footer-cta">Get in touch</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  // Active nav highlight on scroll
+  const allSections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { threshold: 0.25 });
+  allSections.forEach(s => sectionObserver.observe(s));
+
+  // Fade in on scroll
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        fadeObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  fadeEls.forEach(el => fadeObs.observe(el));
+</script>
+</body>
+</html>
