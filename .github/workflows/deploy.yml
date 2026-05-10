@@ -11,5 +11,6 @@ jobs:
       - name: Trigger cPanel Git deployment
         run: |
           curl -s -o /dev/null -w "%{http_code}" \
-            "https://studpeki:${{ secrets.CPANEL_API_TOKEN }}@premium88.web-hosting.com:2083/execute/VersionControlDeployment/create" \
+            -H "Authorization: cpanel studpeki:${{ secrets.CPANEL_API_TOKEN }}" \
+            "https://premium88.web-hosting.com:2083/execute/VersionControlDeployment/create" \
             --data-urlencode "repository_root=/home/studpeki/mauriportfolio"
